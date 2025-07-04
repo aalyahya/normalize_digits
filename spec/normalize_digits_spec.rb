@@ -68,7 +68,7 @@ RSpec.describe NormalizeDigits do
   context "Englishize all attrs" do
     subject { instance_for(EnglishizeAll) }
 
-    it "should englishize strings" do
+    it "should normalize strings" do
       is_expected.to normalize_digits_for(:a)
       is_expected.to normalize_digits_for(:b)
       is_expected.to normalize_digits_for(:d)
@@ -90,7 +90,7 @@ RSpec.describe NormalizeDigits do
   context "Englishize only one attr" do
     subject { instance_for(EnglishizeOnlyOne) }
 
-    it "should englishize included strings" do
+    it "should normalize included strings" do
       is_expected.to normalize_digits_for(:a)
     end
 
@@ -102,7 +102,7 @@ RSpec.describe NormalizeDigits do
   context "Englishize only two attrs" do
     subject { instance_for(EnglishizeOnlyTwo) }
 
-    it "should englishize included strings" do
+    it "should normalize included strings" do
       is_expected.to normalize_digits_for(:a)
       is_expected.to normalize_digits_for(:b)
     end
@@ -115,7 +115,7 @@ RSpec.describe NormalizeDigits do
   context "Englishize except one attr" do
     subject { instance_for(EnglishizeExceptOne) }
 
-    it "should englishize included strings" do
+    it "should normalize included strings" do
       is_expected.to normalize_digits_for(:b)
     end
 
@@ -127,7 +127,7 @@ RSpec.describe NormalizeDigits do
   context "Englishize except two attrs" do
     subject { instance_for(EnglishizeExceptTwo) }
 
-    it "should englishize included strings" do
+    it "should normalize included strings" do
       is_expected.to normalize_digits_for(:d)
     end
 

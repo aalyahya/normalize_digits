@@ -28,7 +28,7 @@ module NormalizeDigits
 
       # RSpec 3.x
       def failure_message
-        "Expected to be englishized from #{@attribute}, but it was not"
+        "Expected to be normalized from #{@attribute}, but it was not"
       end
 
       # RSpec 1.2, 2.x
@@ -36,7 +36,7 @@ module NormalizeDigits
 
       # RSpec 3.x
       def failure_message_when_negated
-        "Expected to remain on #{@attribute}, but it was englishized"
+        "Expected to remain on #{@attribute}, but it was normalized"
       end
 
       # RSpec 1.2, 2.x

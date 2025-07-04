@@ -1,8 +1,16 @@
 # NormalizeDigits
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/normalize_digits`. To experiment with that code, run `bin/console` for an interactive prompt.
+[![Gem Version](https://badge.fury.io/rb/normalize_digits.svg)](https://badge.fury.io/rb/normalize_digits)
 
-TODO: Delete this and the text above, and describe your gem
+NormalizeDigits is a lightweight ActiveModel extension that automatically converts non-English digits (like Arabic,
+Persian, etc.) to standard English digits (`0-9`) before validation. This is useful for applications where users might
+input localized numerals, and consistent numeric formatting is required.
+
+## Features
+
+- Automatically normalizes any non-English digits to ASCII numerals.
+- Integrates seamlessly with ActiveModel or ActiveRecord attributes.
+- Useful for form inputs, APIs, and user-generated content.
 
 ## Installation
 
@@ -14,30 +22,58 @@ gem 'normalize_digits'
 
 And then execute:
 
-    $ bundle
+```shell
+bundle install
+```
 
 Or install it yourself as:
 
-    $ gem install normalize_digits
+```shell
+gem install normalize_digits
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+Simply include the concern in your model and specify which attributes you want to normalize:
 
-## Development
+```ruby
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+class User < ApplicationRecord
+  include NormalizeDigits
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+  normalize_digits
+  # normalize_digits only: [:username]
+  # normalize_digits except: [:username]
+end
+```
+
+Before validation, any non-English digits in the specified fields will be converted to standard 0-9.
+
+### Example
+
+```ruby
+user = User.new(phone_number: "٠٥٠١٢٣٤٥٦٧")
+user.valid?
+user.phone_number
+# => "0501234567"
+```
+
+### Supported Digit Sets
+
+The gem currently supports:
+• Arabic-Indic digits: `٠١٢٣٤٥٦٧٨٩`
+• Eastern Arabic digits: `۰۱۲۳۴۵۶۷۸۹`
+• Can be extended easily via the matchers.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/normalize_digits. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/your-username/normalize_digits.
+1. Fork the repo
+2. Create your feature branch (git checkout -b feature/awesome)
+3. Commit your changes (git commit -am 'Add awesome feature')
+4. Push to the branch (git push origin feature/awesome)
+5. Create a new Pull Request
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the NormalizeDigits project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/normalize_digits/blob/master/CODE_OF_CONDUCT.md).
+The gem is available as open source under the terms of the MIT License.
